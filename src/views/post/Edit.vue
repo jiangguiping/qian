@@ -15,8 +15,7 @@
                 ></el-input>
               </el-form-item>
 
-              <!--Markdown-->
-              <div id="vditor"></div>
+              
 
               <b-taginput
                 v-model="tags"
@@ -42,8 +41,7 @@
 
 <script>
 import { getTopic, update } from "@/api/post";
-import Vditor from "vditor";
-import "vditor/dist/index.css";
+
 
 export default {
   name: "TopicEdit",

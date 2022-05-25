@@ -26,7 +26,7 @@
             </el-form-item>
 
             <!--Markdown-->
-            <div id="vditor" />
+            <mavon-editor v-model="ruleForm.content" :boxShadow="false"></mavon-editor>
 
             <b-taginput
               v-model="ruleForm.tags"
@@ -54,12 +54,9 @@
 
 <script>
 import { post } from '@/api/post'
-import Vditor from 'vditor'
-import 'vditor/dist/index.css'
 
 export default {
   name: 'TopicPost',
-
   data() {
     return {
       contentEditor: {},
@@ -68,6 +65,9 @@ export default {
         tags: [], // 标签
         content: '' // 内容
       },
+      markdownOption:{
+      },
+     
       rules: {
         title: [
           { required: true, message: '请输入话题名称', trigger: 'blur' },
@@ -82,49 +82,19 @@ export default {
     }
   },
   mounted() {
-    this.contentEditor = new Vditor('vditor', {
-      height: 500,
-      placeholder: '此处为话题内容……',
-      theme: 'classic',
-      counter: {
-        enable: true,
-        type: 'markdown'
-      },
-      preview: {
-        delay: 0,
-        hljs: {
-          style: 'monokai',
-          lineNumber: true
-        }
-      },
-      tab: '\t',
-      typewriterMode: true,
-      toolbarConfig: {
-        pin: true
-      },
-      cache: {
-        enable: false
-      },
-      mode: 'sv'
-    })
+    
   },
+
   methods: {
+    
     submitForm(formName) {
       this.$refs[formName].validate((valid) => {
         if (valid) {
-          if (
-            this.contentEditor.getValue().length === 1 ||
-            this.contentEditor.getValue() == null ||
-            this.contentEditor.getValue() === ''
-          ) {
-            alert('话题内容不可为空')
-            return false
-          }
+         
           if (this.ruleForm.tags == null || this.ruleForm.tags.length === 0) {
             alert('标签不可以为空')
             return false
           }
-          this.ruleForm.content = this.contentEditor.getValue()
           post(this.ruleForm).then((response) => {
             const { data } = response
             setTimeout(() => {
@@ -145,6 +115,11 @@ export default {
       this.contentEditor.setValue('')
       this.ruleForm.tags = ''
     }
+  },
+  beforeDestroy() {
+      const editor = this.editor
+      if (editor == null) return
+      editor.destroy() // 组件销毁时，及时销毁编辑器
   }
 }
 </script>

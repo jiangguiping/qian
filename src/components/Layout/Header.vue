@@ -1,5 +1,5 @@
 <template>
-  <header class="header has-background-white has-text-black">
+  <header class="header has-background-white has-text-black"  >
     <b-navbar
       class="container is-white"
       :fixed-top="true"
@@ -12,8 +12,7 @@
         <b-navbar-item
           class="is-hidden-desktop"
           tag="router-link"
-          :to="{ path: '/' }"
-        >
+          :to="{ path: '/' }" >
           主页
         </b-navbar-item>
       </template>
@@ -49,7 +48,7 @@
           </b-field>
         </b-navbar-item>
 
-        <b-navbar-item tag="div">
+        <!-- <b-navbar-item tag="div">
           <b-switch
             v-model="darkMode"
             passive-type="is-warning"
@@ -57,7 +56,7 @@
           >
             {{ darkMode ? "夜" : "日" }}
           </b-switch>
-        </b-navbar-item>
+        </b-navbar-item> -->
 
         <b-navbar-item
           v-if="token == null || token === ''"
@@ -140,6 +139,7 @@ export default {
     }
   },
   created() {
+     this.$store.dispatch("user/getInfo")
     // 获取cookie中的夜间还是白天模式
     this.darkMode = getDarkMode()
     if (this.darkMode) {
@@ -149,6 +149,7 @@ export default {
     }
   },
   methods: {
+    
     async logout() {
       this.$store.dispatch('user/logout').then(() => {
         this.$message.info('退出登录成功')
@@ -178,4 +179,10 @@ input {
   width: 80%;
   height: 86%;
 }
+.navbar-menu, .is-active{
+  position: relative;
+  z-index: 9999;
+}
+
+
 </style>

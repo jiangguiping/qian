@@ -80,30 +80,27 @@ export default {
   },
   methods: {
     submitForm(formName) {
-      this.$refs[formName].validate((valid) => {
-        if (valid) {
-          this.loading = true;
-          this.$store
-            .dispatch("user/login", this.ruleForm)
-            .then(() => {
-              this.$message({
-                message: "恭喜你，登录成功",
-                type: "success",
-                duration: 2000,
-              });
-
-              setTimeout(() => {
-                this.loading = false;
-                this.$router.push({ path: this.redirect || "/" });
-              }, 0.1 * 1000);
-            })
-            .catch(() => {
-              this.loading = false;
-            });
-        } else {
-          return false;
-        }
-      });
+        this.$refs[formName].validate((valid) => {
+            if(valid) {
+                this.loading = true;
+                this.$store.dispatch("user/login",this.ruleForm)
+                .then(() => {
+                  this.$message({
+                    message: "登陆成功",
+                    type: "success",
+                    duration:2000
+                  });
+                  setTimeout(() => {
+                    this.loading = false;
+                    this.$router.push({path: this.redirect || "/"})
+                  },0.1* 1000);
+                }).catch(() => {
+                  this.loading = false;
+                })
+            }else {
+              return false
+            }
+        })
     },
     resetForm(formName) {
       this.$refs[formName].resetFields();

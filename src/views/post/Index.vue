@@ -109,7 +109,6 @@
     </el-card>
   </div>
 </template>
-
 <script>
 import { getList } from '@/api/post'
 import Pagination from '@/components/Pagination'
@@ -130,12 +129,13 @@ export default {
     }
   },
   created() {
-    this.init(this.tab)
+    this.init(this.page.tab)
   },
   methods: {
     init(tab) {
       getList(this.page.current, this.page.size, tab).then((response) => {
         const { data } = response
+        console.log(data);
         this.page.current = data.current
         this.page.total = data.total
         this.page.size = data.size

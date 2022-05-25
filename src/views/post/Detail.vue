@@ -20,9 +20,13 @@
             <span>查看：{{ topic.view }}</span>
           </div>
         </div>
-
         <!--Markdown-->
-        <div id="preview" />
+
+        <div class="quanzhaong">
+           <mavon-editor  v-model="topic.content" :editable="false" :toolbarsFlag="false" :subfield="false" :boxShadow="false" :autofocus="false"/>
+        </div>
+
+
 
         <!--标签-->
         <nav class="level has-text-grey is-size-7 mt-6">
@@ -85,9 +89,6 @@ import { mapGetters } from 'vuex'
 import Author from '@/views/post/Author'
 import Recommend from '@/views/post/Recommend'
 import LvComments from '@/components/Comment/Comments'
-import Vditor from 'vditor'
-import 'vditor/dist/index.css'
-
 export default {
   name: 'TopicDetail',
   components: { Author, Recommend, LvComments },
@@ -111,22 +112,24 @@ export default {
     this.fetchTopic()
   },
   methods: {
-    renderMarkdown(md) {
-      Vditor.preview(document.getElementById('preview'), md, {
-        hljs: { style: 'github' }
-      })
-    },
+    // renderMarkdown(md) {
+    //   Vditor.preview(document.getElementById('preview'), md, {
+    //     hljs: { style: 'github' }
+    //   })
+    // },
     // 初始化
     async fetchTopic() {
       getTopic(this.$route.params.id).then(response => {
+        
         const { data } = response
+        console.log(data);
         document.title = data.topic.title
 
         this.topic = data.topic
         this.tags = data.tags
         this.topicUser = data.user
         // this.comments = data.comments
-        this.renderMarkdown(this.topic.content)
+        // this.renderMarkdown(this.topic.content)
         this.flag = true
       })
     },
@@ -150,4 +153,6 @@ export default {
 #preview {
   min-height: 300px;
 }
+
+
 </style>

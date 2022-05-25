@@ -1,26 +1,37 @@
 <template>
-  <section>
-    <!--是否登录-->
-    <login-welcome />
-
-    <!--今日赠言-->
-    <tip-card />
-
-    <!--资源推介-->
-    <PromotionCard />
-  </section>
+  <div>
+    <!-- 是否登录 -->
+    <login-welome></login-welome>
+    <!-- 今日赠言 -->
+    <tip></tip>
+    <!-- 资源推荐 -->
+    <Cat></Cat>
+  </div>
 </template>
 
 <script>
-import TipCard from '@/views/card/Tip'
-import PromotionCard from '@/views/card/Promotion'
-import LoginWelcome from '@/views/card/LoginWelcome'
+import Cat from '@/views/cat/Cat'
+
+import LoginWelome from '@/views/card/LoginWelome'
+import Promotion from '@/views/card/Promotion'
+import Tip from '@/views/card/Tip'
 
 export default {
-  name: 'CardBar',
-  components: { LoginWelcome, PromotionCard, TipCard }
-}
+  name: "CardBar",
+  components: {LoginWelome,Promotion,Tip,Cat},
+  data() {
+    return {
+    }
+  },
+  created() {
+  },
+
+  methods: {
+
+  },
+};
 </script>
 
-<style scoped>
+<style>
+
 </style>

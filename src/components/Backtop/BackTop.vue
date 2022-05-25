@@ -18,9 +18,24 @@
 </template>
 
 <script>
+
 export default {
-  name: "BackTop"
-}
+    name: 'Backtop',
+
+    data() {
+        return {
+            
+        };
+    },
+
+    mounted() {
+        
+    },
+
+    methods: {
+        
+    },
+};
 </script>
 
 <style scoped>
